@@ -23,8 +23,5 @@ class SpawnNotificationConfig {
         get() = playerLimit > 0
 
     val formatting = mutableMapOf<String, String>(
-        "legendary" to "DARK_PURPLE",
-        "legendary.shiny" to "OBFUSCATED",
-        "shiny" to "YELLOW"
     )
 }
