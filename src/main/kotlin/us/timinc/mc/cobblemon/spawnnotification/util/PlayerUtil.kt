@@ -5,6 +5,7 @@ import net.minecraft.registry.RegistryKey
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.util.math.BlockPos
 import net.minecraft.world.dimension.DimensionType
+import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.config
 import kotlin.math.sqrt
 
 object PlayerUtil {
@@ -39,6 +40,15 @@ object PlayerUtil {
     ): List<ServerPlayerEntity> {
         val serverInstance = server() ?: return emptyList()
 
-        return serverInstance.playerManager.playerList.filter { sqrt(pos.getSquaredDistance(it.pos)) <= range && dimensionKey == it.world.dimensionKey }
+        return serverInstance.playerManager.playerList.filter {
+            val distance = sqrt(pos.getSquaredDistance(it.pos))
+            return@filter distance <= range && dimensionKey == it.world.dimensionKey
+        }
+    }
+
+    fun getValidPlayers(level: RegistryKey<DimensionType>, pos: BlockPos): List<ServerPlayerEntity> {
+        return if (config.playerLimitEnabled) getValidPlayers(
+            pos, config.broadcastRange, level, config.playerLimit
+        ) else getValidPlayers(pos, config.broadcastRange, level)
     }
 }
