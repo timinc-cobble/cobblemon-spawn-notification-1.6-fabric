@@ -46,7 +46,7 @@ class SpawnBroadcaster(
                 "notification.bucket",
                 config.getComponent("bucket.$bucket")
             ) else "",
-            pokemon.species.translatedName,
+            if (config.broadcastSpeciesName) pokemon.species.translatedName else Text.translatable("cobblemon.entity.pokemon"),
             if (config.broadcastBiome) config.getComponent(
                 "notification.biome",
                 config.getRawComponent("biome.${biome.toTranslationKey()}")
