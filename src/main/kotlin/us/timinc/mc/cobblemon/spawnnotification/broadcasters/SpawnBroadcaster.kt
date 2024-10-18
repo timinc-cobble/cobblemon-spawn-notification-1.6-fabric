@@ -3,6 +3,7 @@ package us.timinc.mc.cobblemon.spawnnotification.broadcasters
 import com.cobblemon.mod.common.api.spawning.detail.PokemonSpawnDetail
 import com.cobblemon.mod.common.api.spawning.detail.SpawnPool
 import com.cobblemon.mod.common.pokemon.Pokemon
+import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.BlockPos
@@ -13,7 +14,8 @@ class SpawnBroadcaster(
     val spawnPool: SpawnPool,
     val coords: BlockPos,
     val biome: Identifier,
-    val dimension: Identifier
+    val dimension: Identifier,
+    val player: ServerPlayerEntity?
 ) {
     private val shiny
         get() = pokemon.shiny
@@ -60,6 +62,10 @@ class SpawnBroadcaster(
             if (config.announceCrossDimensions) config.getComponent(
                 "notification.dimension",
                 config.getRawComponent("dimension.${dimension.toTranslationKey()}")
+            ) else "",
+            if (config.broadcastPlayerSpawnedOn && player != null) config.getComponent(
+                "notification.player",
+                player.name
             ) else ""
         )
     }
