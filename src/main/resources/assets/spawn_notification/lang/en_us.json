@@ -8,7 +8,7 @@
   "spawn_notification.notification.biome": "in a %1$s ",
   "spawn_notification.notification.coords": "at %1$s, %2$s, %3$s ",
   "spawn_notification.notification.dimension": "in %1$s",
-  "spawn_notification.notification.player": "near %1$s",
+  "spawn_notification.notification.player": " near %1$s",
 
   "spawn_notification.shiny": "shiny",
 
