@@ -28,7 +28,7 @@ object BroadcastDespawn {
             evt.pokemon,
             coords,
             level.getBiome(coords).key.get().value,
-            level.dimensionKey.value,
+            level.dimensionEntry.key.get().value,
             level,
             DespawnReason.CAPTURED
         )
@@ -47,7 +47,7 @@ object BroadcastDespawn {
             evt.pokemon,
             coords,
             level.getBiome(coords).key.get().value,
-            level.dimensionKey.value,
+            level.dimensionEntry.key.get().value,
             level,
             DespawnReason.FAINTED
         )
@@ -63,7 +63,7 @@ object BroadcastDespawn {
             entity.pokemon,
             coords,
             level.getBiome(coords).key.get().value,
-            level.dimensionKey.value,
+            level.dimensionEntry.key.get().value,
             level,
             DespawnReason.DESPAWNED
         )
@@ -88,7 +88,7 @@ object BroadcastDespawn {
             if (config.announceCrossDimensions) {
                 Broadcast.broadcastMessage(message)
             } else if (config.broadcastRangeEnabled) {
-                Broadcast.broadcastMessage(getValidPlayers(level.dimensionKey, coords), message)
+                Broadcast.broadcastMessage(getValidPlayers(level.dimensionEntry.key.get(), coords), message)
             } else {
                 Broadcast.broadcastMessage(level, message)
             }

@@ -22,13 +22,13 @@ object BroadcastSpawn {
             evt.ctx.spawner.getSpawnPool(),
             evt.ctx.position,
             evt.ctx.biomeName,
-            evt.ctx.world.dimensionKey.value,
+            evt.ctx.world.dimensionEntry.key.get().value,
             if (evt.ctx.spawner is PlayerSpawner) (evt.ctx.spawner as PlayerSpawner).getCauseEntity() else null
         ).getBroadcast()?.let { message ->
             if (config.announceCrossDimensions) {
                 Broadcast.broadcastMessage(message)
             } else if (config.broadcastRangeEnabled) {
-                Broadcast.broadcastMessage(getValidPlayers(world.dimensionKey, pos), message)
+                Broadcast.broadcastMessage(getValidPlayers(world.dimensionEntry.key.get(), pos), message)
             } else {
                 Broadcast.broadcastMessage(world, message)
             }
