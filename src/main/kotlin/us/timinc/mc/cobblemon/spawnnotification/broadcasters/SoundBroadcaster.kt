@@ -17,6 +17,6 @@ class SoundBroadcaster(
     }
 
     fun playShinySoundClient(player: PlayerEntity) {
-        player.playSound(sound, SoundCategory.NEUTRAL, 10f, 1f)
+        player.playSound(sound, 10f, 1f)
     }
 }

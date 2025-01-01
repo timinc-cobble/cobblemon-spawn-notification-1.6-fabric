@@ -18,7 +18,7 @@ object SpawnNotification : ModInitializer {
     var config: SpawnNotificationConfig = ConfigBuilder.load(SpawnNotificationConfig::class.java, MOD_ID)
 
     @JvmStatic
-    var SHINY_SOUND_ID: Identifier = Identifier("$MOD_ID:pla_shiny")
+    var SHINY_SOUND_ID: Identifier = Identifier.of("$MOD_ID:pla_shiny")
 
     @JvmStatic
     var SHINY_SOUND_EVENT: SoundEvent = SoundEvent.of(SHINY_SOUND_ID)

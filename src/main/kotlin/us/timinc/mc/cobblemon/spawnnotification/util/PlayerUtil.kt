@@ -42,7 +42,7 @@ object PlayerUtil {
 
         return serverInstance.playerManager.playerList.filter {
             val distance = sqrt(pos.getSquaredDistance(it.pos))
-            return@filter distance <= range && dimensionKey == it.world.dimensionKey
+            return@filter distance <= range && dimensionKey == it.world.dimensionEntry.key.get()
         }
     }
 
