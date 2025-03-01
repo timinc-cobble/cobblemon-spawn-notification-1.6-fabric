@@ -28,6 +28,9 @@ dependencies {
 
     // Cobblemon
     modImplementation("com.cobblemon:fabric:${property("cobblemon_version")}")
+
+    // JourneyMap
+    modApi(files("libs/journeymap-fabric-1.21.1-6.0.0-beta.39.jar"))
 }
 
 tasks {

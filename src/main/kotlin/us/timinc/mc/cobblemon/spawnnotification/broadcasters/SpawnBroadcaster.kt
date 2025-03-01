@@ -7,6 +7,7 @@ import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.BlockPos
+import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification
 import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.config
 
 class SpawnBroadcaster(
@@ -15,7 +16,7 @@ class SpawnBroadcaster(
     val coords: BlockPos,
     val biome: Identifier,
     val dimension: Identifier,
-    val player: ServerPlayerEntity?
+    val player: ServerPlayerEntity?,
 ) {
     private val shiny
         get() = pokemon.shiny
@@ -66,6 +67,25 @@ class SpawnBroadcaster(
             if (config.broadcastPlayerSpawnedOn && player != null) config.getComponent(
                 "notification.player",
                 player.name
+            ) else "",
+            if (SpawnNotification.journeyMapPresent) config.getComponent(
+                "notification.waypoints",
+                if (shiny && config.broadcastShiny) config.getComponent(
+                    "notification.shiny",
+                    config.getComponent("shiny")
+                ) else "",
+                if (label != null) config.getComponent(
+                    "notification.label",
+                    config.getComponent("label.$label")
+                ) else "",
+                if (bucket != null) config.getComponent(
+                    "notification.bucket",
+                    config.getComponent("bucket.$bucket")
+                ) else "",
+                if (config.broadcastSpeciesName) pokemon.species.translatedName else Text.translatable("cobblemon.entity.pokemon"),
+                coords.x,
+                coords.y,
+                coords.z
             ) else ""
         )
     }
