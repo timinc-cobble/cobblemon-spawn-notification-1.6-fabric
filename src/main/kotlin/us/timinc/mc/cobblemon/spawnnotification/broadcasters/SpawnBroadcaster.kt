@@ -68,25 +68,27 @@ class SpawnBroadcaster(
                 "notification.player",
                 player.name
             ) else "",
-            if (SpawnNotification.journeyMapPresent) config.getComponent(
-                "notification.waypoints",
-                if (shiny && config.broadcastShiny) config.getComponent(
-                    "notification.shiny",
-                    config.getComponent("shiny")
-                ) else "",
-                if (label != null) config.getComponent(
-                    "notification.label",
-                    config.getComponent("label.$label")
-                ) else "",
-                if (bucket != null) config.getComponent(
-                    "notification.bucket",
-                    config.getComponent("bucket.$bucket")
-                ) else "",
-                if (config.broadcastSpeciesName) pokemon.species.translatedName else Text.translatable("cobblemon.entity.pokemon"),
-                coords.x,
-                coords.y,
-                coords.z
-            ) else ""
+            if (SpawnNotification.journeyMapPresent) buildJourneyMapWaypoint() else ""
         )
     }
+
+    private fun buildJourneyMapWaypoint() = config.getComponent(
+        "notification.waypoints",
+        if (shiny && config.broadcastShiny) config.getComponent(
+            "notification.shiny",
+            config.getComponent("shiny")
+        ) else "",
+        if (label != null) config.getComponent(
+            "notification.label",
+            config.getComponent("label.$label")
+        ) else "",
+        if (bucket != null) config.getComponent(
+            "notification.bucket",
+            config.getComponent("bucket.$bucket")
+        ) else "",
+        if (config.broadcastSpeciesName) pokemon.species.translatedName else Text.translatable("cobblemon.entity.pokemon"),
+        coords.x,
+        coords.y,
+        coords.z
+    )
 }
