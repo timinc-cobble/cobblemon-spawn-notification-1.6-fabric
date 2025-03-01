@@ -75,7 +75,7 @@ object BroadcastDespawn {
         biome: Identifier,
         dimension: Identifier,
         level: ServerWorld,
-        reason: DespawnReason
+        reason: DespawnReason,
     ) {
         DespawnBroadcaster(
             pokemon,

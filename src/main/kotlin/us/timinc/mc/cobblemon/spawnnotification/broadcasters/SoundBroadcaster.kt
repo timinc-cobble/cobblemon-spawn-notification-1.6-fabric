@@ -10,7 +10,7 @@ import net.minecraft.world.World
 class SoundBroadcaster(
     val level: World,
     val pos: BlockPos,
-    val sound: SoundEvent
+    val sound: SoundEvent,
 ) {
     fun playShinySound() {
         level.playSoundServer(pos.toCenterPos(), sound, SoundCategory.NEUTRAL, 10f, 1f)

@@ -20,7 +20,7 @@ object PlayerUtil {
      * @return The filtered list of players.
      */
     fun getValidPlayers(
-        pos: BlockPos, range: Int, dimensionKey: RegistryKey<DimensionType>, playerLimit: Int
+        pos: BlockPos, range: Int, dimensionKey: RegistryKey<DimensionType>, playerLimit: Int,
     ): List<ServerPlayerEntity> {
         return getValidPlayers(pos, range, dimensionKey).sortedBy { sqrt(pos.getSquaredDistance(it.pos)) }
             .take(playerLimit)
@@ -36,7 +36,7 @@ object PlayerUtil {
      * @return The filtered list of players.
      */
     fun getValidPlayers(
-        pos: BlockPos, range: Int, dimensionKey: RegistryKey<DimensionType>
+        pos: BlockPos, range: Int, dimensionKey: RegistryKey<DimensionType>,
     ): List<ServerPlayerEntity> {
         val serverInstance = server() ?: return emptyList()
 
