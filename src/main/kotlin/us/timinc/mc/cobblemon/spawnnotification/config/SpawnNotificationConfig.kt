@@ -2,6 +2,7 @@ package us.timinc.mc.cobblemon.spawnnotification.config
 
 import net.minecraft.text.Text
 import net.minecraft.util.Formatting
+import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification
 import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.MOD_ID
 
 class SpawnNotificationConfig {
@@ -15,12 +16,18 @@ class SpawnNotificationConfig {
     val broadcastVolatileDespawns = false
     val broadcastSpeciesName = true
     val broadcastPlayerSpawnedOn = false
+    val disableWaypoints = false
 
     val broadcastRange: Int = -1
     val playerLimit: Int = -1
 
     val labelsForBroadcast: MutableSet<String> = mutableSetOf("legendary")
     val bucketsForBroadcast: MutableSet<String> = mutableSetOf()
+
+    val broadcastXaerosWaypoints
+        get() = !disableWaypoints && SpawnNotification.xaerosPresent
+    val broadcastJourneyMapWaypoints
+        get() = !disableWaypoints && SpawnNotification.journeyMapPresent
 
     @Suppress("KotlinConstantConditions")
     val broadcastRangeEnabled: Boolean

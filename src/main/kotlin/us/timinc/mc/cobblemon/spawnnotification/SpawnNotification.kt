@@ -16,6 +16,8 @@ import us.timinc.mc.cobblemon.spawnnotification.events.PlayShinySound
 object SpawnNotification : ModInitializer {
     const val MOD_ID = "spawn_notification"
     var config: SpawnNotificationConfig = ConfigBuilder.load(SpawnNotificationConfig::class.java, MOD_ID)
+    var journeyMapPresent: Boolean = false
+    var xaerosPresent: Boolean = false
 
     @JvmStatic
     var SHINY_SOUND_ID: Identifier = Identifier.of("$MOD_ID:pla_shiny")
@@ -30,5 +32,13 @@ object SpawnNotification : ModInitializer {
         CobblemonEvents.POKEMON_CAPTURED.subscribe(Priority.LOWEST, BroadcastDespawn::handle)
         CobblemonEvents.POKEMON_FAINTED.subscribe(Priority.LOWEST, BroadcastDespawn::handle)
         ServerEntityEvents.ENTITY_UNLOAD.register(BroadcastDespawn::handle)
+    }
+
+    fun onInitializeJourneyMap() {
+        journeyMapPresent = true
+    }
+
+    fun onInitializeXaeros() {
+        xaerosPresent = true
     }
 }
