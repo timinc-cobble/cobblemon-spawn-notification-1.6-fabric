@@ -4,6 +4,7 @@ import com.cobblemon.mod.common.api.Priority
 import com.cobblemon.mod.common.api.events.CobblemonEvents
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
 import net.minecraft.sound.SoundEvent
 import net.minecraft.util.Identifier
 import us.timinc.mc.cobblemon.spawnnotification.config.ConfigBuilder
@@ -32,6 +33,9 @@ object SpawnNotification : ModInitializer {
         CobblemonEvents.POKEMON_CAPTURED.subscribe(Priority.LOWEST, BroadcastDespawn::handle)
         CobblemonEvents.POKEMON_FAINTED.subscribe(Priority.LOWEST, BroadcastDespawn::handle)
         ServerEntityEvents.ENTITY_UNLOAD.register(BroadcastDespawn::handle)
+        ServerLifecycleEvents.END_DATA_PACK_RELOAD.register { _, _, _ ->
+            config = ConfigBuilder.load(SpawnNotificationConfig::class.java, MOD_ID)
+        }
     }
 
     fun onInitializeJourneyMap() {
