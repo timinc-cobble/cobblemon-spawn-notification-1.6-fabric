@@ -4,7 +4,9 @@
   "package": "us.timinc.mc.cobblemon.spawnnotification.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "JourneyMapPresent"
+    "JourneyMapPresent",
+    "XaerosMiniPresent",
+    "XaerosWorldPresent"
   ],
   "client": [],
   "server": []
