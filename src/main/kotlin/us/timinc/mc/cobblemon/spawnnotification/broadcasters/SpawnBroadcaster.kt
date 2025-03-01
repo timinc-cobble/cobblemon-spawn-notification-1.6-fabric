@@ -73,7 +73,7 @@ class SpawnBroadcaster(
     }
 
     private fun buildJourneyMapWaypoint() = config.getComponent(
-        "notification.waypoints",
+        "notification.waypoints.journeymap",
         if (shiny && config.broadcastShiny) config.getComponent(
             "notification.shiny",
             config.getComponent("shiny")
