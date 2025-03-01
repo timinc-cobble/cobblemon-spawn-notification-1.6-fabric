@@ -24,6 +24,8 @@ class SpawnNotificationConfig {
     val labelsForBroadcast: MutableSet<String> = mutableSetOf("legendary")
     val bucketsForBroadcast: MutableSet<String> = mutableSetOf()
 
+    val blacklistForBroadcast: MutableSet<String> = mutableSetOf()
+
     val broadcastXaerosWaypoints
         get() = !disableWaypoints && SpawnNotification.xaerosPresent
     val broadcastJourneyMapWaypoints

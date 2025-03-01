@@ -1,5 +1,6 @@
 package us.timinc.mc.cobblemon.spawnnotification.broadcasters
 
+import com.cobblemon.mod.common.api.pokemon.PokemonProperties
 import com.cobblemon.mod.common.api.spawning.detail.PokemonSpawnDetail
 import com.cobblemon.mod.common.api.spawning.detail.SpawnPool
 import com.cobblemon.mod.common.pokemon.Pokemon
@@ -29,7 +30,11 @@ class SpawnBroadcaster(
     private val bucket
         get() = config.bucketsForBroadcast.firstOrNull { it in buckets }
     private val shouldBroadcast
-        get() = (shiny && config.broadcastShiny) || label != null || bucket != null
+        get() = ((shiny && config.broadcastShiny) || label != null || bucket != null) && config.blacklistForBroadcast.none {
+            PokemonProperties.parse(
+                it
+            ).matches(pokemon)
+        }
 
     fun getBroadcast(): List<Text> {
         if (!shouldBroadcast) return emptyList()
