@@ -70,11 +70,11 @@ class SpawnBroadcaster(
                     "notification.player",
                     player.name
                 ) else "",
-                if (SpawnNotification.journeyMapPresent) buildJourneyMapWaypoint() else ""
+                if (config.broadcastJourneyMapWaypoints) buildJourneyMapWaypoint() else ""
             )
         )
 
-        if (SpawnNotification.xaerosPresent) {
+        if (config.broadcastXaerosWaypoints) {
             list.add(buildXaerosWaypoint())
         }
 
