@@ -11,7 +11,7 @@
   "spawn_notification.notification.player": " near %1$s ",
   "spawn_notification.notification.waypoints": "| [name:\"%1$s%2$s%3$s%4$s\", x:%5$s, y:%6$s, z:%7$s] ",
 
-  "spawn_notification.shiny": "shiny",
+  "spawn_notification.shiny": "Shiny",
 
   "dimension.minecraft.overworld": "the Overworld",
   "dimension.minecraft.the_nether": "the Nether",

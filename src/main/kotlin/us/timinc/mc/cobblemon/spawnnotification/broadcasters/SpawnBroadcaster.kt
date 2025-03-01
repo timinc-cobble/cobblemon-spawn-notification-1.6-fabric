@@ -5,8 +5,9 @@ import com.cobblemon.mod.common.api.spawning.detail.SpawnPool
 import com.cobblemon.mod.common.pokemon.Pokemon
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.text.Text
-import net.minecraft.util.Identifier    
+import net.minecraft.util.Identifier
 import net.minecraft.util.math.BlockPos
+import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification
 import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.config
 
 class SpawnBroadcaster(
@@ -15,7 +16,7 @@ class SpawnBroadcaster(
     val coords: BlockPos,
     val biome: Identifier,
     val dimension: Identifier,
-    val player: ServerPlayerEntity?
+    val player: ServerPlayerEntity?,
 ) {
     private val shiny
         get() = pokemon.shiny
@@ -67,8 +68,8 @@ class SpawnBroadcaster(
                 "notification.player",
                 player.name
             ) else "",
-            if (config.broadcastWaypoints) config.getComponent(
-                "notification.waypoints", 
+            if (SpawnNotification.journeyMapPresent) config.getComponent(
+                "notification.waypoints",
                 if (shiny && config.broadcastShiny) config.getComponent(
                     "notification.shiny",
                     config.getComponent("shiny")

@@ -15,7 +15,6 @@ class SpawnNotificationConfig {
     val broadcastVolatileDespawns = false
     val broadcastSpeciesName = true
     val broadcastPlayerSpawnedOn = false
-    val broadcastWaypoints = false
 
     val broadcastRange: Int = -1
     val playerLimit: Int = -1
