@@ -30,11 +30,11 @@ dependencies {
     modImplementation("com.cobblemon:fabric:${property("cobblemon_version")}")
 
     // JourneyMap
-    modApi(files("libs/journeymap-fabric-1.21.1-6.0.0-beta.39.jar"))
+    modImplementation("maven.modrinth:journeymap:${property("journeymap_version")}")
 
     // XaerosMinimap
-    modApi(files("libs/Xaeros_Minimap_25.1.0_Fabric_1.21.jar"))
-    modApi(files("libs/XaerosWorldMap_1.39.4_Fabric_1.21.jar"))
+    modImplementation("maven.modrinth:xaeros-minimap:${property("xaeros-minimap_version")}")
+    modImplementation("maven.modrinth:xaeros-world-map:${property("xaeros-world-map_version")}")
 }
 
 tasks {
