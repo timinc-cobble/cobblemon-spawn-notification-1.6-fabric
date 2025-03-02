@@ -1,28 +1,23 @@
 {
   "spawn_notification.notification.spawn": "Un %1$s%2$s%3$s%4$s est apparu %5$s%6$s%7$s%8$s%9$s",
   "spawn_notification.notification.despawn": "Un %1$s%2$s%3$s%4$s %5$s %6$s%7$s%8$s",
-
   "spawn_notification.notification.shiny": "%1$s ",
   "spawn_notification.notification.label": "%1$s ",
   "spawn_notification.notification.bucket": "%1$s ",
   "spawn_notification.notification.biome": "dans un %1$s ",
   "spawn_notification.notification.coords": "à %1$s, %2$s, %3$s ",
   "spawn_notification.notification.dimension": "dans %1$s ",
-  "spawn_notification.notification.player": " près de %1$s ",
+  "spawn_notification.notification.player": "près de %1$s ",
   "spawn_notification.notification.waypoints.journeymap": "| [name:\"%1$s%2$s%3$s%4$s\", x:%5$s, y:%6$s, z:%7$s] ",
   "spawn_notification.notification.waypoints.xaeros": "xaero-waypoint:%1$s%2$s%3$s%4$s:D:%5$s:%6$s:%7$s:3:true:0:Internal-%8$s-waypoints",
-
   "spawn_notification.shiny": "Shiny",
-
   "dimension.minecraft.overworld": "l'Overworld",
   "dimension.minecraft.the_nether": "le Nether",
   "dimension.minecraft.the_end": "L'End",
-
   "spawn_notification.bucket.common": "Commun",
   "spawn_notification.bucket.uncommon": "Peu commun",
   "spawn_notification.bucket.rare": "Rare",
   "spawn_notification.bucket.ultra-rare": "Ultra rare",
-
   "spawn_notification.label.gen1": "Génération 1",
   "spawn_notification.label.gen2": "Génération 2",
   "spawn_notification.label.gen3": "Génération 3",
@@ -44,10 +39,8 @@
   "spawn_notification.label.ultra_beast": "Ultra-Chimère",
   "spawn_notification.label.paradox": "Paradoxe",
   "spawn_notification.label.baby": "Bébé",
-
   "spawn_notification.despawn_reason.captured": "a été capturé",
   "spawn_notification.despawn_reason.fainted": "a été mis K.O.",
   "spawn_notification.despawn_reason.despawned": "a disparu",
-
   "spawn_notification_shinysoundsubtitle": "Un shiny est apparu"
 }
