@@ -124,6 +124,6 @@ class SpawnBroadcaster(
         coords.x,
         coords.y,
         coords.z,
-        dimension
+        "${dimension.namespace}:${dimension.path}"
     )
 }
