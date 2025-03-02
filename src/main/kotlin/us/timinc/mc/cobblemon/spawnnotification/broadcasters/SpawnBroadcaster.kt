@@ -123,6 +123,7 @@ class SpawnBroadcaster(
         if (config.broadcastSpeciesName) pokemon.species.translatedName else Text.translatable("cobblemon.entity.pokemon"),
         coords.x,
         coords.y,
-        coords.z
+        coords.z,
+        "${dimension.namespace}:${dimension.path}"
     )
 }
