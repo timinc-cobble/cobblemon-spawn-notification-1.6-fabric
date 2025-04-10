@@ -21,7 +21,7 @@ class SpawnBroadcaster(
     private val shiny
         get() = pokemon.shiny
     private val blacklisted
-        get() = config.blacklistForBroadcast.none {
+        get() = config.blacklistForBroadcast.any {
             PokemonProperties.parse(
                 it
             ).matches(pokemon)
