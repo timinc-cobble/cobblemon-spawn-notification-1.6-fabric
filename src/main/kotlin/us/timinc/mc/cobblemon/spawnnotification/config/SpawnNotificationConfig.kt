@@ -25,6 +25,7 @@ class SpawnNotificationConfig {
     val bucketsForBroadcast: MutableSet<String> = mutableSetOf()
 
     val blacklistForBroadcast: MutableSet<String> = mutableSetOf()
+    val blacklistForBroadcastEvenIfShiny: MutableSet<String> = mutableSetOf()
 
     val broadcastXaerosWaypoints
         get() = !disableWaypoints && SpawnNotification.xaerosPresent

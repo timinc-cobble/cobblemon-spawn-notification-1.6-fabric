@@ -36,7 +36,11 @@ class SpawnBroadcaster(
     private val bucket
         get() = if (blacklisted) null else config.bucketsForBroadcast.firstOrNull { it in buckets }
     private val shouldBroadcast
-        get() = (shiny && config.broadcastShiny) || label != null || bucket != null
+        get() = ((shiny && config.broadcastShiny) || label != null || bucket != null) && config.blacklistForBroadcastEvenIfShiny.none {
+            PokemonProperties.parse(
+                it
+            ).matches(pokemon)
+        }
 
     fun getBroadcast(): List<Text> {
         if (!shouldBroadcast) return emptyList()
