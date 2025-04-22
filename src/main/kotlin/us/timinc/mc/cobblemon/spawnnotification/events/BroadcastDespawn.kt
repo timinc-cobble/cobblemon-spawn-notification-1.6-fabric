@@ -1,6 +1,5 @@
 package us.timinc.mc.cobblemon.spawnnotification.events
 
-import com.cobblemon.mod.common.api.spawning.CobblemonSpawnPools
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.pokemon.Pokemon
 import net.minecraft.entity.Entity
@@ -39,7 +38,6 @@ object BroadcastDespawn {
     ) {
         DespawnBroadcaster(
             pokemon,
-            CobblemonSpawnPools.WORLD_SPAWN_POOL,
             coords,
             biome,
             dimension
