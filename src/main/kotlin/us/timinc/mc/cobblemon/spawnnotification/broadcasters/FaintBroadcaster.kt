@@ -4,17 +4,19 @@ import com.cobblemon.mod.common.api.pokemon.PokemonProperties
 import com.cobblemon.mod.common.api.spawning.detail.PokemonSpawnDetail
 import com.cobblemon.mod.common.api.spawning.detail.SpawnPool
 import com.cobblemon.mod.common.pokemon.Pokemon
+import net.minecraft.entity.Entity
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.BlockPos
 import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.config
 
-class DespawnBroadcaster(
+class FaintBroadcaster(
     val pokemon: Pokemon,
     val spawnPool: SpawnPool,
     val coords: BlockPos,
     val biome: Identifier,
     val dimension: Identifier,
+    val player: Entity?,
 ) {
     private val shiny
         get() = pokemon.shiny
@@ -44,7 +46,7 @@ class DespawnBroadcaster(
         if (!shouldBroadcast) return null
 
         return config.getComponent(
-            "notification.despawn",
+            "notification.faint",
             if (shiny && config.broadcastShiny) config.getComponent(
                 "notification.shiny",
                 config.getComponent("shiny")
@@ -71,6 +73,10 @@ class DespawnBroadcaster(
             if (config.announceCrossDimensions) config.getComponent(
                 "notification.dimension",
                 config.getRawComponent("dimension.${dimension.toTranslationKey()}")
+            ) else "",
+            if (config.announceDespawnPlayer && player != null) config.getComponent(
+                "notification.player.despawn",
+                player.name
             ) else ""
         )
     }
