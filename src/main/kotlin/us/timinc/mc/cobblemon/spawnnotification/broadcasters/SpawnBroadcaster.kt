@@ -1,18 +1,16 @@
 package us.timinc.mc.cobblemon.spawnnotification.broadcasters
 
 import com.cobblemon.mod.common.api.pokemon.PokemonProperties
-import com.cobblemon.mod.common.api.spawning.detail.PokemonSpawnDetail
-import com.cobblemon.mod.common.api.spawning.detail.SpawnPool
 import com.cobblemon.mod.common.pokemon.Pokemon
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.BlockPos
 import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.config
+import us.timinc.mc.cobblemon.spawnnotification.events.AttachBucket.BUCKET
 
 class SpawnBroadcaster(
     val pokemon: Pokemon,
-    val spawnPool: SpawnPool,
     val coords: BlockPos,
     val biome: Identifier,
     val dimension: Identifier,
@@ -28,13 +26,12 @@ class SpawnBroadcaster(
         }
     private val label
         get() = if (blacklisted) null else pokemon.form.labels.firstOrNull { it in config.labelsForBroadcast }
-    private val buckets
-        get() = spawnPool
-            .mapNotNull { if (it is PokemonSpawnDetail) it else null }
-            .filter { it.pokemon.matches(pokemon) }
-            .map { it.bucket.name }
     private val bucket
-        get() = if (blacklisted) null else config.bucketsForBroadcast.firstOrNull { it in buckets }
+        get() = if (blacklisted || !pokemon.persistentData.contains(BUCKET)) null else config.bucketsForBroadcast.firstOrNull {
+            it == pokemon.persistentData.getString(
+                BUCKET
+            )
+        }
     private val shouldBroadcast
         get() = ((shiny && config.broadcastShiny) || label != null || bucket != null) && config.blacklistForBroadcastEvenIfShiny.none {
             PokemonProperties.parse(

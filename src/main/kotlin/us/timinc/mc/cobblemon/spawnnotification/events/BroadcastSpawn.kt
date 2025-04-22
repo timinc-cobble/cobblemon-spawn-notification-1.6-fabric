@@ -19,7 +19,6 @@ object BroadcastSpawn {
 
         val messages = SpawnBroadcaster(
             evt.entity.pokemon,
-            evt.ctx.spawner.getSpawnPool(),
             evt.ctx.position,
             evt.ctx.biomeName,
             evt.ctx.world.dimensionEntry.key.get().value,

@@ -1,7 +1,6 @@
 package us.timinc.mc.cobblemon.spawnnotification.events
 
 import com.cobblemon.mod.common.api.events.pokemon.PokemonCapturedEvent
-import com.cobblemon.mod.common.api.spawning.CobblemonSpawnPools
 import com.cobblemon.mod.common.pokemon.Pokemon
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.server.world.ServerWorld
@@ -41,7 +40,6 @@ object BroadcastCapture {
     ) {
         CaptureBroadcaster(
             pokemon,
-            CobblemonSpawnPools.WORLD_SPAWN_POOL,
             coords,
             biome,
             dimension,
