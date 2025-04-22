@@ -1,6 +1,8 @@
 {
   "spawn_notification.notification.spawn": "Y'arrr! A %2$s%3$s%4$s%1$s be spotted %5$s%6$s%7$s%8$s%9$s",
-  "spawn_notification.notification.despawn": "Blast! A %3$s%4$s%1$s%2$s %5$s",
+  "spawn_notification.notification.despawn": "Blast! A %3$s%4$s%1$s%2$s vanished into the briny deep %5$s%6$s%7$s",
+  "spawn_notification.notification.capture": "Blast! A %1$s%2$s%3$s%4$s be taken captive by a pirate lord %5$s%6$s%7$s%8$s",
+  "spawn_notification.notification.faint": "Blast! A %1$s%2$s%3$s%4$s be bound for Davy Jones Locker %5$s%6$s%7$s%8$s",
   "spawn_notification.notification.shiny": " %1$s",
   "spawn_notification.notification.label": "%1$s ",
   "spawn_notification.notification.bucket": "%1$s ",
@@ -8,6 +10,7 @@
   "spawn_notification.notification.coords": "at %1$s, %2$s, %3$s on yer map ",
   "spawn_notification.notification.dimension": "%1$s ",
   "spawn_notification.notification.player": "alongside %1$s ",
+  "spawn_notification.notification.player.despawn": "on the good ship %1$s",
   "spawn_notification.notification.waypoints.journeymap": "| [name:\"%1$s%2$s%3$s%4$s\", x:%5$s, y:%6$s, z:%7$s] ",
   "spawn_notification.notification.waypoints.xaeros": "xaero-waypoint:%1$s%2$s%3$s%4$s:D:%5$s:%6$s:%7$s:3:true:0:Internal-%8$s-waypoints",
   "spawn_notification.shiny": "what glitters and shines",
@@ -39,8 +42,5 @@
   "spawn_notification.label.ultra_beast": "Deep Sea Horror",
   "spawn_notification.label.paradox": "Phantom of the Tides",
   "spawn_notification.label.baby": "Lil’ Deckhand",
-  "spawn_notification.despawn_reason.captured": "be taken captive by a pirate lord",
-  "spawn_notification.despawn_reason.fainted": "be bound for Davy Jones Locker",
-  "spawn_notification.despawn_reason.despawned": "vanished into the briny deep",
   "spawn_notification_shinysoundsubtitle": "A shiny booty be found!"
 }

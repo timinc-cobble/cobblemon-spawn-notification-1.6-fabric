@@ -9,10 +9,7 @@ import net.minecraft.sound.SoundEvent
 import net.minecraft.util.Identifier
 import us.timinc.mc.cobblemon.spawnnotification.config.ConfigBuilder
 import us.timinc.mc.cobblemon.spawnnotification.config.SpawnNotificationConfig
-import us.timinc.mc.cobblemon.spawnnotification.events.BroadcastDespawn
-import us.timinc.mc.cobblemon.spawnnotification.events.BroadcastSpawn
-import us.timinc.mc.cobblemon.spawnnotification.events.PlayShinyPlayerSound
-import us.timinc.mc.cobblemon.spawnnotification.events.PlayShinySound
+import us.timinc.mc.cobblemon.spawnnotification.events.*
 
 object SpawnNotification : ModInitializer {
     const val MOD_ID = "spawn_notification"
@@ -30,8 +27,10 @@ object SpawnNotification : ModInitializer {
         CobblemonEvents.POKEMON_ENTITY_SPAWN.subscribe(Priority.LOWEST, BroadcastSpawn::handle)
         CobblemonEvents.POKEMON_ENTITY_SPAWN.subscribe(Priority.LOWEST, PlayShinySound::handle)
         CobblemonEvents.POKEMON_SENT_POST.subscribe(Priority.LOWEST, PlayShinyPlayerSound::handle)
-        CobblemonEvents.POKEMON_CAPTURED.subscribe(Priority.LOWEST, BroadcastDespawn::handle)
-        CobblemonEvents.POKEMON_FAINTED.subscribe(Priority.LOWEST, BroadcastDespawn::handle)
+        CobblemonEvents.POKEMON_CAPTURED.subscribe(Priority.LOWEST, BroadcastCapture::handle)
+        CobblemonEvents.POKEMON_FAINTED.subscribe(Priority.LOWEST, BroadcastFaint::handle)
+        CobblemonEvents.BATTLE_FAINTED.subscribe(Priority.LOWEST, BroadcastFaint::handle)
+        ServerEntityEvents.ENTITY_UNLOAD.register(BroadcastFaint::handle)
         ServerEntityEvents.ENTITY_UNLOAD.register(BroadcastDespawn::handle)
         ServerLifecycleEvents.END_DATA_PACK_RELOAD.register { _, _, _ ->
             config = ConfigBuilder.load(SpawnNotificationConfig::class.java, MOD_ID)

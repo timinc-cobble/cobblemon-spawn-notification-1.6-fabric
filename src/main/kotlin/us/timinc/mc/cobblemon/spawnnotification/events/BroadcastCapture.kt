@@ -1,32 +1,33 @@
 package us.timinc.mc.cobblemon.spawnnotification.events
 
+import com.cobblemon.mod.common.api.events.pokemon.PokemonCapturedEvent
 import com.cobblemon.mod.common.api.spawning.CobblemonSpawnPools
-import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.pokemon.Pokemon
-import net.minecraft.entity.Entity
+import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.BlockPos
 import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.config
-import us.timinc.mc.cobblemon.spawnnotification.broadcasters.DespawnBroadcaster
-import us.timinc.mc.cobblemon.spawnnotification.events.BroadcastFaint.FAINT_HAS_ENTITY
+import us.timinc.mc.cobblemon.spawnnotification.broadcasters.CaptureBroadcaster
 import us.timinc.mc.cobblemon.spawnnotification.util.Broadcast
 import us.timinc.mc.cobblemon.spawnnotification.util.PlayerUtil.getValidPlayers
 
-object BroadcastDespawn {
-    fun handle(entity: Entity, level: ServerWorld) {
-        if (!config.broadcastVolatileDespawns) return
-        if (entity !is PokemonEntity) return
-        if (entity.pokemon.persistentData.contains(FAINT_HAS_ENTITY)) return
+object BroadcastCapture {
+    fun handle(evt: PokemonCapturedEvent) {
+        if (!config.broadcastCaptures) return
 
+        val entity = evt.pokeBallEntity
         val coords = entity.blockPos
+        val level = entity.world
+        if (level !is ServerWorld) return
 
         broadcast(
-            entity.pokemon,
+            evt.pokemon,
             coords,
             level.getBiome(coords).key.get().value,
             level.dimensionEntry.key.get().value,
             level,
+            evt.player
         )
     }
 
@@ -36,13 +37,15 @@ object BroadcastDespawn {
         biome: Identifier,
         dimension: Identifier,
         level: ServerWorld,
+        player: ServerPlayerEntity,
     ) {
-        DespawnBroadcaster(
+        CaptureBroadcaster(
             pokemon,
             CobblemonSpawnPools.WORLD_SPAWN_POOL,
             coords,
             biome,
-            dimension
+            dimension,
+            player
         ).getBroadcast()?.let { message ->
             if (config.announceCrossDimensions) {
                 Broadcast.broadcastMessage(message)
