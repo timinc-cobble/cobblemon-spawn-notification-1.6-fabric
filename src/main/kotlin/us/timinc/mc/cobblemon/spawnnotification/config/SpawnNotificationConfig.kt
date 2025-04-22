@@ -21,7 +21,7 @@ class SpawnNotificationConfig {
     val broadcastRange: Int = -1
     val playerLimit: Int = -1
 
-    val labelsForBroadcast: MutableSet<String> = mutableSetOf("legendary")
+    val labelsForBroadcast: MutableSet<String> = mutableSetOf("legendary", "mythical", "ultra_beast", "paradox")
     val bucketsForBroadcast: MutableSet<String> = mutableSetOf()
 
     val blacklistForBroadcast: MutableSet<String> = mutableSetOf()
