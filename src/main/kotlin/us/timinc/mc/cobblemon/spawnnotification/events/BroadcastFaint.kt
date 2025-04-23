@@ -10,14 +10,14 @@ import net.minecraft.entity.Entity
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.BlockPos
+import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.FAINT_ENTITY
+import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.FAINT_HAS_ENTITY
 import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.config
 import us.timinc.mc.cobblemon.spawnnotification.broadcasters.FaintBroadcaster
 import us.timinc.mc.cobblemon.spawnnotification.util.Broadcast
 import us.timinc.mc.cobblemon.spawnnotification.util.PlayerUtil.getValidPlayers
 
 object BroadcastFaint {
-    const val FAINT_HAS_ENTITY = "spawn_notification:faint_reason"
-    const val FAINT_ENTITY = "spawn_notification:faint_entity"
 
     fun handle(evt: PokemonFaintedEvent) {
         if (!config.broadcastFaints) return
