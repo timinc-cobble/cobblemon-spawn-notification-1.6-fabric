@@ -6,8 +6,8 @@ import net.minecraft.entity.Entity
 import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.BlockPos
+import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.BUCKET
 import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.config
-import us.timinc.mc.cobblemon.spawnnotification.events.AttachBucket.BUCKET
 
 class FaintBroadcaster(
     val pokemon: Pokemon,

@@ -13,6 +13,10 @@ import us.timinc.mc.cobblemon.spawnnotification.events.*
 
 object SpawnNotification : ModInitializer {
     const val MOD_ID = "spawn_notification"
+    const val SPAWN_BROADCASTED = "spawn_notification:spawn_broadcasted"
+    const val BUCKET = "spawn_notification:bucket"
+    const val FAINT_HAS_ENTITY = "spawn_notification:faint_reason"
+    const val FAINT_ENTITY = "spawn_notification:faint_entity"
     var config: SpawnNotificationConfig = ConfigBuilder.load(SpawnNotificationConfig::class.java, MOD_ID)
     var journeyMapPresent: Boolean = false
     var xaerosPresent: Boolean = false
@@ -31,6 +35,7 @@ object SpawnNotification : ModInitializer {
         CobblemonEvents.POKEMON_CAPTURED.subscribe(Priority.LOWEST, BroadcastCapture::handle)
         CobblemonEvents.POKEMON_FAINTED.subscribe(Priority.LOWEST, BroadcastFaint::handle)
         CobblemonEvents.BATTLE_FAINTED.subscribe(Priority.LOWEST, BroadcastFaint::handle)
+        ServerEntityEvents.ENTITY_LOAD.register(BroadcastUnnaturalSpawn::handle)
         ServerEntityEvents.ENTITY_UNLOAD.register(BroadcastFaint::handle)
         ServerEntityEvents.ENTITY_UNLOAD.register(BroadcastDespawn::handle)
         ServerLifecycleEvents.END_DATA_PACK_RELOAD.register { _, _, _ ->
