@@ -6,13 +6,15 @@ import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification
 import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.MOD_ID
 
 class SpawnNotificationConfig {
+    val announceDespawnPlayer = true
     val broadcastShiny = true
     val broadcastCoords = true
     val broadcastBiome = false
     val playShinySound = true
     val playShinySoundPlayer = false
     val announceCrossDimensions = false
-    val broadcastDespawns = false
+    val broadcastCaptures = true
+    val broadcastFaints = true
     val broadcastVolatileDespawns = false
     val broadcastSpeciesName = true
     val broadcastPlayerSpawnedOn = false
@@ -21,7 +23,7 @@ class SpawnNotificationConfig {
     val broadcastRange: Int = -1
     val playerLimit: Int = -1
 
-    val labelsForBroadcast: MutableSet<String> = mutableSetOf("legendary")
+    val labelsForBroadcast: MutableSet<String> = mutableSetOf("legendary", "mythical", "ultra_beast", "paradox")
     val bucketsForBroadcast: MutableSet<String> = mutableSetOf()
 
     val blacklistForBroadcast: MutableSet<String> = mutableSetOf()

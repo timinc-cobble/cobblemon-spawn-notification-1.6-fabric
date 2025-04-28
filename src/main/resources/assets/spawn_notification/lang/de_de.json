@@ -1,6 +1,8 @@
 {
   "spawn_notification.notification.spawn": "Ein %1$s%2$s%3$s%4$s ist erschienen %5$s%6$s%7$s%8$s%9$s",
-  "spawn_notification.notification.despawn": "Ein %1$s%2$s%3$s%4$s %5$s %6$s%7$s%8$s",
+  "spawn_notification.notification.despawn": "Ein %1$s%2$s%3$s%4$s ist verschwunden %5$s%6$s%7$s",
+  "spawn_notification.notification.capture": "Ein %1$s%2$s%3$s%4$s wurde gefangen %8$s%5$s%6$s%7$s",
+  "spawn_notification.notification.faint": "Ein %1$s%2$s%3$s%4$s ist besiegt worden %8$s%5$s%6$s%7$s",
   "spawn_notification.notification.shiny": "%1$s ",
   "spawn_notification.notification.label": "%1$s ",
   "spawn_notification.notification.bucket": "%1$s ",
@@ -8,6 +10,7 @@
   "spawn_notification.notification.coords": "bei %1$s, %2$s, %3$s ",
   "spawn_notification.notification.dimension": "in %1$s ",
   "spawn_notification.notification.player": "in der Nähe von %1$s ",
+  "spawn_notification.notification.player.despawn": "wurde von %1$s",
   "spawn_notification.notification.waypoints.journeymap": "| [name:\"%1$s%2$s%3$s%4$s\", x:%5$s, y:%6$s, z:%7$s] ",
   "spawn_notification.notification.waypoints.xaeros": "xaero-waypoint:%1$s%2$s%3$s%4$s:D:%5$s:%6$s:%7$s:3:true:0:Internal-%8$s-waypoints",
   "spawn_notification.shiny": "Schillernd",
@@ -39,8 +42,6 @@
   "spawn_notification.label.ultra_beast": "Ultrabestie",
   "spawn_notification.label.paradox": "Paradox",
   "spawn_notification.label.baby": "Baby",
-  "spawn_notification.despawn_reason.captured": "wurde gefangen",
-  "spawn_notification.despawn_reason.fainted": "ist besiegt worden",
-  "spawn_notification.despawn_reason.despawned": "ist verschwunden",
+  "spawn_notification.label.starter": "Starter",
   "spawn_notification_shinysoundsubtitle": "Ein Schillerndes ist erschienen"
 }

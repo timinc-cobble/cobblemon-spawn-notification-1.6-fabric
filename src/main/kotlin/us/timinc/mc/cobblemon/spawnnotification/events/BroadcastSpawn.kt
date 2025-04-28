@@ -3,6 +3,7 @@ package us.timinc.mc.cobblemon.spawnnotification.events
 import com.cobblemon.mod.common.api.events.entity.SpawnEvent
 import com.cobblemon.mod.common.api.spawning.spawner.PlayerSpawner
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
+import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.SPAWN_BROADCASTED
 import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.config
 import us.timinc.mc.cobblemon.spawnnotification.broadcasters.SpawnBroadcaster
 import us.timinc.mc.cobblemon.spawnnotification.util.Broadcast
@@ -17,9 +18,10 @@ object BroadcastSpawn {
         if (world.isClient) return
         if (pokemon.isPlayerOwned()) return
 
+        pokemon.persistentData.putBoolean(SPAWN_BROADCASTED, true)
+
         val messages = SpawnBroadcaster(
             evt.entity.pokemon,
-            evt.ctx.spawner.getSpawnPool(),
             evt.ctx.position,
             evt.ctx.biomeName,
             evt.ctx.world.dimensionEntry.key.get().value,
