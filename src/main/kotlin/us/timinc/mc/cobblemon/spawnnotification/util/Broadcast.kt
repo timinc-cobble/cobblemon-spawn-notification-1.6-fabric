@@ -1,9 +1,9 @@
 package us.timinc.mc.cobblemon.spawnnotification.util
 
 import com.cobblemon.mod.common.util.server
-import net.minecraft.server.network.ServerPlayerEntity
-import net.minecraft.server.world.ServerWorld
-import net.minecraft.text.Text
+import net.minecraft.network.chat.Component
+import net.minecraft.server.level.ServerLevel
+import net.minecraft.server.level.ServerPlayer
 
 object Broadcast {
     /**
@@ -11,10 +11,10 @@ object Broadcast {
      *
      * @param message The message to send.
      */
-    fun broadcastMessage(message: Text) {
+    fun broadcastMessage(message: Component) {
         val serverInstance = server() ?: return
-        serverInstance.sendMessage(message)
-        broadcastMessage(serverInstance.playerManager.playerList, message)
+        serverInstance.sendSystemMessage(message)
+        broadcastMessage(serverInstance.playerList.players, message)
     }
 
     /**
@@ -23,8 +23,8 @@ object Broadcast {
      * @param level The level to get the players from.
      * @param message The message to send.
      */
-    fun broadcastMessage(level: ServerWorld, message: Text) {
-        broadcastMessage(level.players, message)
+    fun broadcastMessage(level: ServerLevel, message: Component) {
+        broadcastMessage(level.players(), message)
     }
 
     /**
@@ -33,7 +33,7 @@ object Broadcast {
      * @param players The list of players.
      * @param message The message to send.
      */
-    fun broadcastMessage(players: List<ServerPlayerEntity>, message: Text) {
+    fun broadcastMessage(players: List<ServerPlayer>, message: Component) {
         players.forEach { broadcastMessage(it, message) }
     }
 
@@ -43,7 +43,7 @@ object Broadcast {
      * @param player The player.
      * @param message The message to send.
      */
-    private fun broadcastMessage(player: ServerPlayerEntity, message: Text) {
-        player.sendMessage(message)
+    private fun broadcastMessage(player: ServerPlayer, message: Component) {
+        player.sendSystemMessage(message)
     }
 }

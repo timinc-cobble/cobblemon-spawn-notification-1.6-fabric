@@ -2,19 +2,19 @@ package us.timinc.mc.cobblemon.spawnnotification.broadcasters
 
 import com.cobblemon.mod.common.api.pokemon.PokemonProperties
 import com.cobblemon.mod.common.pokemon.Pokemon
-import net.minecraft.server.network.ServerPlayerEntity
-import net.minecraft.text.Text
-import net.minecraft.util.Identifier
-import net.minecraft.util.math.BlockPos
+import net.minecraft.core.BlockPos
+import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.server.level.ServerPlayer
 import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.BUCKET
 import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.config
 
 class SpawnBroadcaster(
     val pokemon: Pokemon,
     val coords: BlockPos,
-    val biome: Identifier,
-    val dimension: Identifier,
-    val player: ServerPlayerEntity?,
+    val biome: ResourceLocation,
+    val dimension: ResourceLocation,
+    val player: ServerPlayer?,
 ) {
     private val shiny
         get() = pokemon.shiny
@@ -39,10 +39,10 @@ class SpawnBroadcaster(
             ).matches(pokemon)
         }
 
-    fun getBroadcast(): List<Text> {
+    fun getBroadcast(): List<Component> {
         if (!shouldBroadcast) return emptyList()
 
-        val list = mutableListOf<Text>()
+        val list = mutableListOf<Component>()
         list.add(
             config.getComponent(
                 "notification.spawn",
@@ -58,10 +58,10 @@ class SpawnBroadcaster(
                     "notification.bucket",
                     config.getComponent("bucket.$bucket")
                 ) else "",
-                if (config.broadcastSpeciesName) pokemon.species.translatedName else Text.translatable("cobblemon.entity.pokemon"),
+                if (config.broadcastSpeciesName) pokemon.species.translatedName else Component.translatable("cobblemon.entity.pokemon"),
                 if (config.broadcastBiome) config.getComponent(
                     "notification.biome",
-                    config.getRawComponent("biome.${biome.toTranslationKey()}")
+                    config.getRawComponent("biome.${biome.toLanguageKey()}")
                 ) else "",
                 if (config.broadcastCoords) config.getComponent(
                     "notification.coords",
@@ -71,7 +71,7 @@ class SpawnBroadcaster(
                 ) else "",
                 if (config.announceCrossDimensions) config.getComponent(
                     "notification.dimension",
-                    config.getRawComponent("dimension.${dimension.toTranslationKey()}")
+                    config.getRawComponent("dimension.${dimension.toLanguageKey()}")
                 ) else "",
                 if (config.broadcastPlayerSpawnedOn && player != null) config.getComponent(
                     "notification.player",
@@ -102,7 +102,7 @@ class SpawnBroadcaster(
             "notification.bucket",
             config.getComponent("bucket.$bucket")
         ) else "",
-        if (config.broadcastSpeciesName) pokemon.species.translatedName else Text.translatable("cobblemon.entity.pokemon"),
+        if (config.broadcastSpeciesName) pokemon.species.translatedName else Component.translatable("cobblemon.entity.pokemon"),
         coords.x,
         coords.y,
         coords.z,
@@ -123,7 +123,7 @@ class SpawnBroadcaster(
             "notification.bucket",
             config.getComponent("bucket.$bucket")
         ) else "",
-        if (config.broadcastSpeciesName) pokemon.species.translatedName else Text.translatable("cobblemon.entity.pokemon"),
+        if (config.broadcastSpeciesName) pokemon.species.translatedName else Component.translatable("cobblemon.entity.pokemon"),
         coords.x,
         coords.y,
         coords.z,

@@ -1,10 +1,10 @@
 package us.timinc.mc.cobblemon.spawnnotification.util
 
 import com.cobblemon.mod.common.util.server
-import net.minecraft.registry.RegistryKey
-import net.minecraft.server.network.ServerPlayerEntity
-import net.minecraft.util.math.BlockPos
-import net.minecraft.world.dimension.DimensionType
+import net.minecraft.core.BlockPos
+import net.minecraft.resources.ResourceKey
+import net.minecraft.server.level.ServerPlayer
+import net.minecraft.world.level.Level
 import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.config
 import kotlin.math.sqrt
 
@@ -20,9 +20,9 @@ object PlayerUtil {
      * @return The filtered list of players.
      */
     fun getValidPlayers(
-        pos: BlockPos, range: Int, dimensionKey: RegistryKey<DimensionType>, playerLimit: Int,
-    ): List<ServerPlayerEntity> {
-        return getValidPlayers(pos, range, dimensionKey).sortedBy { sqrt(pos.getSquaredDistance(it.pos)) }
+        pos: BlockPos, range: Int, dimensionKey: ResourceKey<Level>, playerLimit: Int,
+    ): List<ServerPlayer> {
+        return getValidPlayers(pos, range, dimensionKey).sortedBy { sqrt(pos.distSqr(it.blockPosition())) }
             .take(playerLimit)
     }
 
@@ -36,17 +36,17 @@ object PlayerUtil {
      * @return The filtered list of players.
      */
     fun getValidPlayers(
-        pos: BlockPos, range: Int, dimensionKey: RegistryKey<DimensionType>,
-    ): List<ServerPlayerEntity> {
+        pos: BlockPos, range: Int, dimensionKey: ResourceKey<Level>,
+    ): List<ServerPlayer> {
         val serverInstance = server() ?: return emptyList()
 
-        return serverInstance.playerManager.playerList.filter {
-            val distance = sqrt(pos.getSquaredDistance(it.pos))
-            return@filter distance <= range && dimensionKey == it.world.dimensionEntry.key.get()
+        return serverInstance.playerList.players.filter {
+            val distance = sqrt(pos.distSqr(it.blockPosition()))
+            return@filter distance <= range && dimensionKey == it.level().dimension()
         }
     }
 
-    fun getValidPlayers(level: RegistryKey<DimensionType>, pos: BlockPos): List<ServerPlayerEntity> {
+    fun getValidPlayers(level: ResourceKey<Level>, pos: BlockPos): List<ServerPlayer> {
         return if (config.playerLimitEnabled) getValidPlayers(
             pos, config.broadcastRange, level, config.playerLimit
         ) else getValidPlayers(pos, config.broadcastRange, level)

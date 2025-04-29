@@ -9,8 +9,8 @@ object PlayShinyPlayerSound {
     fun handle(evt: PokemonSentPostEvent) {
         if (!(config.playShinySoundPlayer && evt.pokemon.shiny)) return
         SoundBroadcaster(
-            evt.pokemonEntity.world,
-            evt.pokemonEntity.blockPos,
+            evt.pokemonEntity.level(),
+            evt.pokemonEntity.blockPosition(),
             SHINY_SOUND_EVENT
         ).playShinySound()
     }
