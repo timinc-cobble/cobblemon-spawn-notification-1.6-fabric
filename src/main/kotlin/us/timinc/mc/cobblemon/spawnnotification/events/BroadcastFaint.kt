@@ -58,7 +58,7 @@ object BroadcastFaint {
         val faintHasEntity = entity.pokemon.persistentData.getBoolean(FAINT_HAS_ENTITY)
         val attackingEntity = if (!faintHasEntity) null else entity.pokemon.persistentData.getUUID(
             FAINT_ENTITY
-        )?.let { level.getEntity(it) }
+        )?.let { uuid -> level.allEntities.find { entity -> entity.uuid == uuid } }
         val coords = entity.blockPosition()
 
         broadcast(
