@@ -9,13 +9,14 @@ import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.config
 import us.timinc.mc.cobblemon.spawnnotification.broadcasters.SpawnBroadcaster
 import us.timinc.mc.cobblemon.spawnnotification.util.Broadcast
 import us.timinc.mc.cobblemon.spawnnotification.util.PlayerUtil.getValidPlayers
+import us.timinc.mc.cobblemon.spawnnotification.util.isReallyWild
 
 object BroadcastUnnaturalSpawn {
     fun handle(entity: Entity, world: ServerLevel) {
         if (entity !is PokemonEntity) return
         val pokemon = entity.pokemon
 
-        if (pokemon.isPlayerOwned()) return
+        if (!pokemon.isReallyWild()) return
 
         afterOnServer(1, world) {
             if (pokemon.persistentData.contains(SPAWN_BROADCASTED)) return@afterOnServer
