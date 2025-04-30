@@ -2,10 +2,10 @@ package us.timinc.mc.cobblemon.spawnnotification.events
 
 import com.cobblemon.mod.common.entity.pokemon.PokemonEntity
 import com.cobblemon.mod.common.pokemon.Pokemon
-import net.minecraft.entity.Entity
-import net.minecraft.server.world.ServerWorld
-import net.minecraft.util.Identifier
-import net.minecraft.util.math.BlockPos
+import net.minecraft.core.BlockPos
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.server.level.ServerLevel
+import net.minecraft.world.entity.Entity
 import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.FAINT_HAS_ENTITY
 import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.config
 import us.timinc.mc.cobblemon.spawnnotification.broadcasters.DespawnBroadcaster
@@ -13,18 +13,18 @@ import us.timinc.mc.cobblemon.spawnnotification.util.Broadcast
 import us.timinc.mc.cobblemon.spawnnotification.util.PlayerUtil.getValidPlayers
 
 object BroadcastDespawn {
-    fun handle(entity: Entity, level: ServerWorld) {
+    fun handle(entity: Entity, level: ServerLevel) {
         if (!config.broadcastVolatileDespawns) return
         if (entity !is PokemonEntity) return
         if (entity.pokemon.persistentData.contains(FAINT_HAS_ENTITY)) return
 
-        val coords = entity.blockPos
+        val coords = entity.blockPosition()
 
         broadcast(
             entity.pokemon,
             coords,
-            level.getBiome(coords).key.get().value,
-            level.dimensionEntry.key.get().value,
+            level.getBiome(coords).unwrapKey().get().location(),
+            level.dimension().location(),
             level,
         )
     }
@@ -32,9 +32,9 @@ object BroadcastDespawn {
     private fun broadcast(
         pokemon: Pokemon,
         coords: BlockPos,
-        biome: Identifier,
-        dimension: Identifier,
-        level: ServerWorld,
+        biome: ResourceLocation,
+        dimension: ResourceLocation,
+        level: ServerLevel,
     ) {
         DespawnBroadcaster(
             pokemon,
@@ -45,7 +45,7 @@ object BroadcastDespawn {
             if (config.announceCrossDimensions) {
                 Broadcast.broadcastMessage(message)
             } else if (config.broadcastRangeEnabled) {
-                Broadcast.broadcastMessage(getValidPlayers(level.dimensionEntry.key.get(), coords), message)
+                Broadcast.broadcastMessage(getValidPlayers(level.dimension(), coords), message)
             } else {
                 Broadcast.broadcastMessage(level, message)
             }

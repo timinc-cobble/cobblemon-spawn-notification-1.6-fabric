@@ -17,7 +17,7 @@ object PlayShinySound {
                 world, pos, SHINY_SOUND_EVENT
             )
             if (config.broadcastRangeEnabled) {
-                getValidPlayers(world.dimensionEntry.key.get(), pos).forEach { broadcaster.playShinySoundClient(it) }
+                getValidPlayers(world.dimension(), pos).forEach { broadcaster.playShinySoundClient(it) }
             } else {
                 broadcaster.playShinySound()
             }

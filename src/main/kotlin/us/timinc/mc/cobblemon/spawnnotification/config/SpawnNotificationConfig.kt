@@ -1,7 +1,7 @@
 package us.timinc.mc.cobblemon.spawnnotification.config
 
-import net.minecraft.text.Text
-import net.minecraft.util.Formatting
+import net.minecraft.ChatFormatting
+import net.minecraft.network.chat.Component
 import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification
 import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.MOD_ID
 
@@ -48,15 +48,15 @@ class SpawnNotificationConfig {
         "shiny" to "GOLD"
     )
 
-    fun getComponent(characteristic: String, vararg props: Any): Text {
-        val result = Text.translatable("$MOD_ID.$characteristic", *props)
-        val possibleFormatting = formatting[characteristic]?.let(Formatting::byName)
-        return if (possibleFormatting != null) result.formatted(possibleFormatting) else result
+    fun getComponent(characteristic: String, vararg props: Any): Component {
+        val result = Component.translatable("$MOD_ID.$characteristic", *props)
+        val possibleFormatting = formatting[characteristic]?.let(ChatFormatting::getByName)
+        return if (possibleFormatting != null) result.withStyle(possibleFormatting) else result
     }
 
-    fun getRawComponent(characteristic: String, vararg props: Any): Text {
-        val result = Text.translatable(characteristic, *props)
-        val possibleFormatting = formatting[characteristic]?.let(Formatting::byName)
-        return if (possibleFormatting != null) result.formatted(possibleFormatting) else result
+    fun getRawComponent(characteristic: String, vararg props: Any): Component {
+        val result = Component.translatable(characteristic, *props)
+        val possibleFormatting = formatting[characteristic]?.let(ChatFormatting::getByName)
+        return if (possibleFormatting != null) result.withStyle(possibleFormatting) else result
     }
 }

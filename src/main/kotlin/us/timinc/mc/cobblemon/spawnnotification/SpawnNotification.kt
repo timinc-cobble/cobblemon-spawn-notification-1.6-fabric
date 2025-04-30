@@ -5,8 +5,8 @@ import com.cobblemon.mod.common.api.events.CobblemonEvents
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
-import net.minecraft.sound.SoundEvent
-import net.minecraft.util.Identifier
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.sounds.SoundEvent
 import us.timinc.mc.cobblemon.spawnnotification.config.ConfigBuilder
 import us.timinc.mc.cobblemon.spawnnotification.config.SpawnNotificationConfig
 import us.timinc.mc.cobblemon.spawnnotification.events.*
@@ -22,10 +22,10 @@ object SpawnNotification : ModInitializer {
     var xaerosPresent: Boolean = false
 
     @JvmStatic
-    var SHINY_SOUND_ID: Identifier = Identifier.of("$MOD_ID:pla_shiny")
+    var SHINY_SOUND_ID: ResourceLocation = ResourceLocation.fromNamespaceAndPath(MOD_ID, "pla_shiny")
 
     @JvmStatic
-    var SHINY_SOUND_EVENT: SoundEvent = SoundEvent.of(SHINY_SOUND_ID)
+    var SHINY_SOUND_EVENT: SoundEvent = SoundEvent.createVariableRangeEvent(SHINY_SOUND_ID)
 
     override fun onInitialize() {
         CobblemonEvents.POKEMON_ENTITY_SPAWN.subscribe(Priority.LOWEST, AttachBucket::handle)

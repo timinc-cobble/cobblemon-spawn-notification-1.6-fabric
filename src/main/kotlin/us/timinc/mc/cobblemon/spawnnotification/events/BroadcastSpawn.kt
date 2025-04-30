@@ -8,6 +8,7 @@ import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.config
 import us.timinc.mc.cobblemon.spawnnotification.broadcasters.SpawnBroadcaster
 import us.timinc.mc.cobblemon.spawnnotification.util.Broadcast
 import us.timinc.mc.cobblemon.spawnnotification.util.PlayerUtil.getValidPlayers
+import us.timinc.mc.cobblemon.spawnnotification.util.isReallyWild
 
 object BroadcastSpawn {
     fun handle(evt: SpawnEvent<PokemonEntity>) {
@@ -15,8 +16,8 @@ object BroadcastSpawn {
         val pos = evt.ctx.position
         val pokemon = evt.entity.pokemon
 
-        if (world.isClient) return
-        if (pokemon.isPlayerOwned()) return
+        if (world.isClientSide) return
+        if (!pokemon.isReallyWild()) return
 
         pokemon.persistentData.putBoolean(SPAWN_BROADCASTED, true)
 
@@ -24,14 +25,14 @@ object BroadcastSpawn {
             evt.entity.pokemon,
             evt.ctx.position,
             evt.ctx.biomeName,
-            evt.ctx.world.dimensionEntry.key.get().value,
+            evt.ctx.world.dimension().location(),
             if (evt.ctx.spawner is PlayerSpawner) (evt.ctx.spawner as PlayerSpawner).getCauseEntity() else null
         ).getBroadcast()
         messages.forEach { message ->
             if (config.announceCrossDimensions) {
                 Broadcast.broadcastMessage(message)
             } else if (config.broadcastRangeEnabled) {
-                Broadcast.broadcastMessage(getValidPlayers(world.dimensionEntry.key.get(), pos), message)
+                Broadcast.broadcastMessage(getValidPlayers(world.dimension(), pos), message)
             } else {
                 Broadcast.broadcastMessage(world, message)
             }
