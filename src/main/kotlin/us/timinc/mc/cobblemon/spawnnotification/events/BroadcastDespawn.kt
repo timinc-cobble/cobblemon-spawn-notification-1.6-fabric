@@ -6,7 +6,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.Entity
-import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.FAINT_HAS_ENTITY
+import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.SHOULD_BROADCAST_FAINT
 import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.config
 import us.timinc.mc.cobblemon.spawnnotification.broadcasters.DespawnBroadcaster
 import us.timinc.mc.cobblemon.spawnnotification.util.Broadcast
@@ -16,7 +16,7 @@ object BroadcastDespawn {
     fun handle(entity: Entity, level: ServerLevel) {
         if (!config.broadcastVolatileDespawns) return
         if (entity !is PokemonEntity) return
-        if (entity.pokemon.persistentData.contains(FAINT_HAS_ENTITY)) return
+        if (entity.pokemon.persistentData.contains(SHOULD_BROADCAST_FAINT)) return
 
         val coords = entity.blockPosition()
 

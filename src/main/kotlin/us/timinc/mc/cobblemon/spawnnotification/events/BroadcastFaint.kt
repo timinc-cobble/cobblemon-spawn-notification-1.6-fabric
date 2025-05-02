@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.Entity
 import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.FAINT_ENTITY
+import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.SHOULD_BROADCAST_FAINT
 import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.config
 import us.timinc.mc.cobblemon.spawnnotification.broadcasters.FaintBroadcaster
 import us.timinc.mc.cobblemon.spawnnotification.util.Broadcast
@@ -30,6 +31,7 @@ object BroadcastFaint {
         val lastAttacker = entity.lastAttacker
         if (lastAttacker !== null) {
             evt.pokemon.persistentData.putUUID(FAINT_ENTITY, lastAttacker.uuid)
+            evt.pokemon.persistentData.putBoolean(SHOULD_BROADCAST_FAINT, true)
         }
     }
 
@@ -45,14 +47,16 @@ object BroadcastFaint {
             ?.let {
                 evt.killed.effectedPokemon.persistentData.putUUID(FAINT_ENTITY, it)
             }
+        evt.killed.effectedPokemon.persistentData.putBoolean(SHOULD_BROADCAST_FAINT, true)
     }
 
     fun handle(entity: Entity, level: ServerLevel) {
         if (entity !is PokemonEntity) return
+        if (!entity.pokemon.persistentData.contains(SHOULD_BROADCAST_FAINT)) return
 
         val attackingEntity = entity.pokemon.persistentData.getUuidOrNull(
             FAINT_ENTITY
-        )?.let { level.getEntity(it) }
+        )?.let { level.getEntity(it) } ?: return
         val coords = entity.blockPosition()
 
         broadcast(

@@ -15,7 +15,7 @@ object SpawnNotification : ModInitializer {
     const val MOD_ID = "spawn_notification"
     const val SPAWN_BROADCASTED = "spawn_notification:spawn_broadcasted"
     const val BUCKET = "spawn_notification:bucket"
-    const val FAINT_HAS_ENTITY = "spawn_notification:faint_reason"
+    const val SHOULD_BROADCAST_FAINT = "spawn_notification:should_broadcast_faint"
     const val FAINT_ENTITY = "spawn_notification:faint_entity"
     var config: SpawnNotificationConfig = ConfigBuilder.load(SpawnNotificationConfig::class.java, MOD_ID)
     var journeyMapPresent: Boolean = false
