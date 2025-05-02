@@ -11,11 +11,11 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.Entity
 import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.FAINT_ENTITY
-import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.FAINT_HAS_ENTITY
 import us.timinc.mc.cobblemon.spawnnotification.SpawnNotification.config
 import us.timinc.mc.cobblemon.spawnnotification.broadcasters.FaintBroadcaster
 import us.timinc.mc.cobblemon.spawnnotification.util.Broadcast
 import us.timinc.mc.cobblemon.spawnnotification.util.PlayerUtil.getValidPlayers
+import us.timinc.mc.cobblemon.spawnnotification.util.getUuidOrNull
 
 object BroadcastFaint {
 
@@ -28,10 +28,7 @@ object BroadcastFaint {
         if (level !is ServerLevel) return
 
         val lastAttacker = entity.lastAttacker
-        if (lastAttacker === null) {
-            evt.pokemon.persistentData.putBoolean(FAINT_HAS_ENTITY, false)
-        } else {
-            evt.pokemon.persistentData.putBoolean(FAINT_HAS_ENTITY, true)
+        if (lastAttacker !== null) {
             evt.pokemon.persistentData.putUUID(FAINT_ENTITY, lastAttacker.uuid)
         }
     }
@@ -44,21 +41,18 @@ object BroadcastFaint {
         val level = entity.level()
         if (level !is ServerLevel) return
 
-        evt.killed.effectedPokemon.persistentData.putBoolean(FAINT_HAS_ENTITY, true)
-        evt.killed.facedOpponents.find { e -> e.effectedPokemon.getOwnerUUID() != null }?.effectedPokemon?.getOwnerPlayer()
+        evt.killed.facedOpponents.find { e -> e.effectedPokemon.getOwnerUUID() != null }?.effectedPokemon?.getOwnerUUID()
             ?.let {
-                evt.killed.effectedPokemon.persistentData.putUUID(FAINT_ENTITY, it.uuid)
+                evt.killed.effectedPokemon.persistentData.putUUID(FAINT_ENTITY, it)
             }
     }
 
     fun handle(entity: Entity, level: ServerLevel) {
         if (entity !is PokemonEntity) return
-        if (!entity.pokemon.persistentData.contains(FAINT_HAS_ENTITY)) return
 
-        val faintHasEntity = entity.pokemon.persistentData.getBoolean(FAINT_HAS_ENTITY)
-        val attackingEntity = if (!faintHasEntity) null else entity.pokemon.persistentData.getUUID(
+        val attackingEntity = entity.pokemon.persistentData.getUuidOrNull(
             FAINT_ENTITY
-        )?.let { uuid -> level.allEntities.find { entity -> entity.uuid == uuid } }
+        )?.let { level.getEntity(it) }
         val coords = entity.blockPosition()
 
         broadcast(
@@ -77,14 +71,14 @@ object BroadcastFaint {
         biome: ResourceLocation,
         dimension: ResourceLocation,
         level: ServerLevel,
-        player: Entity? = null,
+        slayer: Entity? = null,
     ) {
         FaintBroadcaster(
             pokemon,
             coords,
             biome,
             dimension,
-            player
+            slayer
         ).getBroadcast()?.let { message ->
             if (config.announceCrossDimensions) {
                 Broadcast.broadcastMessage(message)
