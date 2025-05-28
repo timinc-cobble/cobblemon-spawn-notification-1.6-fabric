@@ -17,12 +17,13 @@ import us.timinc.mc.cobblemon.spawnnotification.broadcasters.FaintBroadcaster
 import us.timinc.mc.cobblemon.spawnnotification.util.Broadcast
 import us.timinc.mc.cobblemon.spawnnotification.util.PlayerUtil.getValidPlayers
 import us.timinc.mc.cobblemon.spawnnotification.util.getUuidOrNull
+import us.timinc.mc.cobblemon.spawnnotification.util.isReallyWild
 
 object BroadcastFaint {
 
     fun handle(evt: PokemonFaintedEvent) {
         if (!config.broadcastFaints) return
-        if (!evt.pokemon.isWild()) return
+        if (!evt.pokemon.isReallyWild()) return
 
         val entity = evt.pokemon.entity ?: return
         val level = entity.level()
@@ -37,7 +38,7 @@ object BroadcastFaint {
 
     fun handle(evt: BattleFaintedEvent) {
         if (!config.broadcastFaints) return
-        if (!evt.killed.effectedPokemon.isWild()) return
+        if (!evt.killed.effectedPokemon.isReallyWild()) return
 
         val entity = evt.killed.entity ?: return
         val level = entity.level()
