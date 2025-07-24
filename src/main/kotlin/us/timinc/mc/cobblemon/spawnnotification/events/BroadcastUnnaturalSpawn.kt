@@ -20,6 +20,7 @@ object BroadcastUnnaturalSpawn {
 
         afterOnServer(1, world) {
             if (pokemon.persistentData.contains(SPAWN_BROADCASTED)) return@afterOnServer
+            pokemon.persistentData.putBoolean(SPAWN_BROADCASTED, true)
 
             val pos = entity.blockPosition()
 
